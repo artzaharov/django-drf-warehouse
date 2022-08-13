@@ -11,4 +11,9 @@ def order_api_request(sender, instance, **kwargs):
 		'status': instance.status_id,
 		'warehouse': instance.warehouse
 	}
-	requests.put(f'http://127.0.0.1:8000/api/v1/order/{instance.slug}/', json=order)
+
+	# Updating status of existing order in the Store
+	try:
+		requests.put(f'http://127.0.0.1:8000/api/v1/order/{instance.slug}/', json=order)
+	except Exception as ex:
+		print(ex)
